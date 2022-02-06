@@ -1,11 +1,20 @@
-import {} from "webpack-dev-server";
-import { Configuration } from "webpack";
+import {} from 'webpack-dev-server'
+import { Configuration } from 'webpack'
 
 const config: Configuration = {
-  mode: "development",
-  entry: "./src/index.ts",
+  mode: 'development',
+  entry: './src/index.ts',
+  resolve: {
+    extensions: ['.ts', '.js'],
+  },
   module: {
     rules: [
+      {
+        // 拡張子 .ts の場合
+        test: /\.ts$/,
+        // TypeScript をコンパイルする
+        use: 'ts-loader',
+      },
       {
         test: /\.scss$/,
         use: [
@@ -18,13 +27,13 @@ const config: Configuration = {
           {
             loader: 'sass-loader',
           },
-        ]
+        ],
       },
-    ]
+    ],
   },
   output: {
     path: `${__dirname}/public`,
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
   devServer: {
     static: {
@@ -33,6 +42,6 @@ const config: Configuration = {
     open: true,
     port: 3000,
   },
-};
+}
 
-export default config;
+export default config
